@@ -61,6 +61,7 @@ resp.show()
 
 <details>
   <summary>Output</summary>
+
 ```
 Response successful tokens: i:43 o:145 message:
 Message role:assistant content:
@@ -157,6 +158,7 @@ for distance, entry_id in results:
 
 <details>
   <summary>Output</summary>
+
 ```
 computing embedding for "What is the name of the last emperor?"
 query: What is the name of the last emperor?
