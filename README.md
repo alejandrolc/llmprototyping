@@ -53,10 +53,33 @@ groq_api_key = os.getenv('GROQ_API_KEY')
 import llmprototyping as llmp
 factory = llmp.LLMChatCompletionFactory
 model = factory.build('groq/llama3-70b-8192', {'api_key': groq_api_key})
-msg = llmp.Message(content="De qué color es el caballo blanco de Santiago? Responde en json.")
-resp = model.query([msg], json_response=True, temperature=0)
+user_msg = llmp.Message(content="Please give me a list of ten colours and some place that is related to each one.")
+sys_msg = llmp.Message(content="Provide an answer in json", role="system")
+resp = model.query([user_msg,sys_msg], json_response=True, temperature=0)
 resp.show()
 ```
+
+<details>
+  <summary>Output</summary>
+```
+Response successful tokens: i:43 o:145 message:
+Message role:assistant content:
+{
+"colours": [
+{"colour": "Red", "place": "Rome"},
+{"colour": "Orange", "place": "Netherlands"},
+{"colour": "Yellow", "place": "Sunshine Coast"},
+{"colour": "Green", "place": "Emerald Isle"},
+{"colour": "Blue", "place": "Blue Mountains"},
+{"colour": "Indigo", "place": "Indigo Bay"},
+{"colour": "Violet", "place": "Violet Hill"},
+{"colour": "Pink", "place": "Pink Sands Beach"},
+{"colour": "Brown", "place": "Brown County"},
+{"colour": "Grey", "place": "Greytown"}
+]
+}
+```
+</details>
 
 ### List available models
 
@@ -132,7 +155,8 @@ for distance, entry_id in results:
     print(f"{distance:.3f} {entry_id} {knowledge_list[entry_id]}")
 ```
 
-Output:
+<details>
+  <summary>Output</summary>
 ```
 computing embedding for "What is the name of the last emperor?"
 query: What is the name of the last emperor?
@@ -144,4 +168,4 @@ query: What is the name of the last emperor?
 ```
 
 Values for distances may vary depending on the actual embeddings computed.
-
+</details>
