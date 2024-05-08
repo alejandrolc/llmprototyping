@@ -41,6 +41,8 @@ pip install llmprototyping
 
 ## Usage
 
+Note: The examples use python-dotenv. This is not required by llmprototyping, so it needs to be installed separatedly. 
+
 ### Simple chat completion call
 
 ```python
