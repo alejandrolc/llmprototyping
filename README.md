@@ -176,6 +176,10 @@ Values for distances may vary depending on the actual embeddings computed.
 
 ### Ollama example: chat
 
+OLLAMA_HOST is the uri of the host, e.g. http://192.168.1.2:11434
+It requires a call to ollama_discover to register the models in the server
+ollama_pull can be used to pull a model
+
 ```python
 import os
 from dotenv import load_dotenv
