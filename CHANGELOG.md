@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.1.0.dev3 2024-05-08
+
+standardized model names to all-lowercase
+added extra examples
+
+## 0.1.0.dev2 2024-05-08
+
+Remove unneded file
+Added changelog
+Updated README.md
+
 ## 0.1.0.dev1 2024-05-08
 
 First commit
@@ -19,9 +30,3 @@ embedding models:
   openai/text-embedding-ada-002
 
 faiss vector db
-
-## 0.1.0.dev2 2024-05-08
-
-Remove unneded file
-Added changelog
-Updated README.md
