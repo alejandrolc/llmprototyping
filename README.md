@@ -72,7 +72,7 @@ for model_name in llmp.EmbeddingComputerFactory.available_models:
     print(f"  {model_name}")
 ```
 
-### Embeddings example
+### Embeddings example: search
 
 ```python
 knowledge_list = [
@@ -88,7 +88,7 @@ knowledge_list = [
     "Roman society was heavily stratified between patricians, plebeians, and slaves."
 ]
 
-question = "When was the Roman Empire founded?"
+question = "What is the name of the last emperor?"
 
 import os
 from dotenv import load_dotenv
@@ -131,3 +131,17 @@ results = vdb.search(em_question)
 for distance, entry_id in results:
     print(f"{distance:.3f} {entry_id} {knowledge_list[entry_id]}")
 ```
+
+Output:
+```
+computing embedding for "What is the name of the last emperor?"
+query: What is the name of the last emperor?
+1.105 6 The fall of Rome occurred in 476 CE when the last Western Roman emperor, Romulus Augustulus, was deposed.
+1.337 2 Julius Caesar became the perpetual dictator in 44 BCE, shortly before his assassination.
+1.457 3 The Roman Empire officially began when Octavian received the title of Augustus in 27 BCE.
+1.522 5 The capital of the Empire was moved to Constantinople by Constantine I in 330.
+1.559 1 The Roman Republic was established in 509 BCE after overthrowing the last Etruscan kings.
+```
+
+Values for distances may vary depending on the actual embeddings computed.
+
