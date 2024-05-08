@@ -120,7 +120,6 @@ entry_table = dict()
 for entry_id, entry_text in enumerate(knowledge_list):
     em = get_embedding(entry_text, computer)
     entry_table[entry_id] = em
-    assert knowledge_list[entry_id] == entry_text
 
 em_question = get_embedding(question, computer)
 
