@@ -21,6 +21,24 @@ python 3.9+
 pip install llmprototyping
 ```
 
+## Available models
+
+### chat completion models
+
+- groq/llama3-70b-8192
+- groq/llama3-8b-8192
+- groq/mixtral-8x7b-32768
+- groq/gemma-7b-it
+- openai/gpt-4-turbo
+- openai/gpt-4-turbo-preview
+- openai/gpt-3.5-turbo
+
+### embedding models
+
+- openai/text-embedding-3-small
+- openai/text-embedding-3-large
+- openai/text-embedding-ada-002
+
 ## Usage
 
 ### Simple chat completion call
