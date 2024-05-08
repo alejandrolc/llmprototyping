@@ -28,6 +28,11 @@ class Factory(metaclass=Singleton):
         return [x for x in registry.keys()]
 
     @classmethod
+    def model_registered(cls, name):
+        registry = cls.__get_registry()
+        return name in registry
+
+    @classmethod
     def register(cls, name, class_obj):
         if issubclass(class_obj, cls._class):
             registry = cls.__get_registry()
@@ -36,7 +41,7 @@ class Factory(metaclass=Singleton):
             raise LLMException.param_error(f"error registering {class_obj}: type mismatch; expected {cls._class}")
 
     @classmethod
-    def build(cls, name, data):
+    def build(cls, name, data={}):
         registry = cls.__get_registry()
         obj_cls = registry.get(name)
         if obj_cls:

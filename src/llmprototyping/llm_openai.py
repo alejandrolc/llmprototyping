@@ -4,10 +4,6 @@ import openai
 from .llm_interface import LLMChatCompletion, LLMChatCompletionFactory, Message, Response
 from .error import LLMException
 
-@property
-def context_size(self):
-    return self._context_size
-
 class LLMOpenAIChatCompletion(LLMChatCompletion):
     def __init__(self, api_key, model_name, context_size):
         self.model_name = model_name
@@ -29,8 +25,8 @@ class LLMOpenAIChatCompletion(LLMChatCompletion):
             r = self._client.chat.completions.create(
                 messages = [m.to_dict() for m in messages],
                 model = self.model_name,
-                response_format=rformat,
-                temperature=temperature
+                response_format = rformat,
+                temperature = temperature
             )
             rcontent = r.choices[0].message.content
             rrole = r.choices[0].message.role

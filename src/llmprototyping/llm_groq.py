@@ -25,8 +25,8 @@ class LLMGroqChatCompletion(LLMChatCompletion):
             r = self._client.chat.completions.create(
                 messages = [m.to_dict() for m in messages],
                 model = self.model_name,
-                response_format=rformat,
-                temperature=temperature
+                response_format = rformat,
+                temperature = temperature
             )
             rcontent = r.choices[0].message.content
             rrole = r.choices[0].message.role

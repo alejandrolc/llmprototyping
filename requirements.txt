@@ -3,3 +3,4 @@ openai
 tiktoken
 packaging
 faiss-cpu
+ollama

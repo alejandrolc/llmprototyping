@@ -20,3 +20,12 @@ try:
     openai_emb_init()
 except ImportError:
     pass
+
+
+try:
+    from .llm_ollama import init as ollama_llm_init
+    from .llm_ollama import pull_model as ollama_pull_model
+    ollama_llm_init()
+    from .llm_ollama import discover as ollama_discover
+except ImportError:
+    pass

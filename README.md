@@ -65,7 +65,7 @@ resp.show()
   <summary>Output</summary>
 
 ```
-Response successful tokens: i:43 o:145 message:
+Response successful; tokens: i:43 o:145 message:
 Message role:assistant content:
 {
 "colours": [
@@ -173,3 +173,63 @@ query: What is the name of the last emperor?
 
 Values for distances may vary depending on the actual embeddings computed.
 </details>
+
+### Ollama example: chat
+
+```python
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+ollama_host = os.getenv('OLLAMA_HOST')
+
+import llmprototyping as llmp
+
+llmp.ollama_discover(host=ollama_host)
+llmp.ollama_pull_model(host=ollama_host, model_name='phi3')
+
+print('chat completion models:')
+for model_name in llmp.LLMChatCompletionFactory.available_models:
+    print(f"  {model_name}")
+print()
+
+factory = llmp.LLMChatCompletionFactory
+model = factory.build('ollama/phi3:latest')
+user_msg = llmp.Message(content="Please give me a list of ten colours and some place that is related to each one.")
+sys_msg = llmp.Message(content="Provide an answer in json", role="system")
+resp = model.query([user_msg,sys_msg], json_response=True, temperature=0)
+
+resp.show_header()
+print(resp.message.content)
+```
+
+<details>
+  <summary>Output</summary>
+
+```
+chat completion models:
+  groq/llama3-70b-8192
+  groq/llama3-8b-8192
+  groq/mixtral-8x7b-32768
+  groq/gemma-7b-it
+  openai/gpt-4-turbo
+  openai/gpt-4-turbo-preview
+  openai/gpt-3.5-turbo
+  ollama/phi3:latest
+
+Response successful; tokens: i:40 o:189
+{
+  "Colours": [
+    {"Red": "The Eiffel Tower, Paris"},
+    {"Blue": "Pacific Ocean near Hawaii"},
+    {"Green": "Yellowstone National Park, USA"},
+    {"Orange": "Sunset at the Grand Canyon, Arizona"},
+    {"White": "Mt. Everest Base Camp, Nepal"},
+    {"Black": "The Great Barrier Reef, Australia (night diving)"},
+    {"Purple": "Royal Palace of Caserta, Italy"},
+    {"Gray": "Snowy landscapes in the Swiss Alps"},
+    {"Brown": "Amazon Rainforest, Brazil"},
+    {"Yellow": "Kilimanjaro's snow-capped peak, Tanzania"}
+  ]
+}
+```

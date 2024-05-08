@@ -51,11 +51,15 @@ class Response:
     def error(self):
         return self._error
 
-    def show(self):
+    def show_header(self):
         if not self.is_success:
             print(f"Response failure; status:{self.status_code} error:{self.error}")
         else:
-            print(f"Response successful tokens: i:{self.input_token_count} o:{self.output_token_count} message:")
+            print(f"Response successful; tokens: i:{self.input_token_count} o:{self.output_token_count}")
+
+    def show(self):
+        self.show_header()
+        if self.is_success:
             self.message.show()
 
     @staticmethod
