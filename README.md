@@ -32,6 +32,7 @@ pip install llmprototyping
 - openai/gpt-4-turbo
 - openai/gpt-4-turbo-preview
 - openai/gpt-3.5-turbo
+- ollama/*
 
 ### embedding models
 
