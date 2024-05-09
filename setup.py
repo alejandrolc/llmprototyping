@@ -13,7 +13,7 @@ setup(
     name="llmprototyping",
     # https://packaging.python.org/en/latest/discussions/versioning/
     version="0.1.0.dev4",
-    description="A simple set of tools to access llm apis",
+    description="A lightweight set of tools to use several llm and embeddings apis",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/alejandrolc/llmprototyping",
@@ -25,7 +25,7 @@ setup(
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "License :: OSI Approved :: Apache Software License",
     ],
-    keywords="llm, rag, openai, groq",
+    keywords="llm, rag, openai, groq, ollama",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     python_requires=">=3.9, <4",

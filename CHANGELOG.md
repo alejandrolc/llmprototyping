@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0.dev4 2024-05-09 (unreleased, wip)
+## 0.1.0.dev4 2024-05-09
 
 added ollama chat and embeddings
 
