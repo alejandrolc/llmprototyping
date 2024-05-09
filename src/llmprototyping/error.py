@@ -9,7 +9,7 @@ class LLMException(Exception):
         self.extra_data = extra_data
 
     def __str__(self) -> str:
-        return f"AIAgentException {self.error_type} ({'retryable' if self.retryable else 'final'}) {self.info}"
+        return f"LLMException {self.error_type} ({'retryable' if self.retryable else 'final'}) {self.info}"
 
     @staticmethod
     def not_available(info):

@@ -15,8 +15,7 @@ The expansion of Christianity as the official religion was promoted by Constanti
 Roman society was heavily stratified between patricians, plebeians, and slaves.
 """
 
-question = "¿Cuáles fueron las principales contribuciones de la ingeniería romana al desarrollo urbano?"
-question = "¿Cuándo se fundó el Imperio Romano?"
+question = "What is the name of the last emperor?"
 
 import sys
 sys.path.append('../../my_github/llmtoolkit/src')
@@ -44,7 +43,7 @@ def get_embedding(text, computer):
     return em
 
 factory = llmp.EmbeddingComputerFactory
-computer = factory.build('openai/text-embedding-3-small', {'api_key': openai_api_key})        
+computer = factory.build('openai/text-embedding-3-small', {'api_key': openai_api_key})
 
 fact_text = dict()
 fact_vector = dict()

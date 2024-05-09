@@ -46,7 +46,7 @@ class OpenAIEmbeddingComputer(EmbeddingComputer):
 
     def get_embedding(self, text):
         text = text.replace("\n", " ").strip()
-        v = self._client.embeddings.create(input=[text], model=self.model_name).data[0].embedding
+        v = self._client.embeddings.create(input=text, model=self.model_name).data[0].embedding
         if len(v) != self.vector_size:
             raise Exception(f"vector size mismatch; expected:{self.vector_size} got:{len(v)}")
         return EmbeddingVector(v, self.get_computer_name(self.model_name))

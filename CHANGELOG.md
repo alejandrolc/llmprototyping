@@ -2,7 +2,7 @@
 
 ## 0.1.0.dev4 2024-05-09 (unreleased, wip)
 
-added ollama chat (embeddings pending)
+added ollama chat and embeddings
 
 ## 0.1.0.dev3 2024-05-08
 

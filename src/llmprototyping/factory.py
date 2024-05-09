@@ -33,10 +33,12 @@ class Factory(metaclass=Singleton):
         return name in registry
 
     @classmethod
-    def register(cls, name, class_obj):
+    def register(cls, name, class_obj, alias = None):
         if issubclass(class_obj, cls._class):
             registry = cls.__get_registry()
             registry[name] = class_obj
+            if alias is not None:
+                registry[alias] = class_obj
         else:
             raise LLMException.param_error(f"error registering {class_obj}: type mismatch; expected {cls._class}")
 
