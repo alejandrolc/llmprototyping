@@ -39,6 +39,7 @@ pip install llmprototyping
 - openai/text-embedding-3-small
 - openai/text-embedding-3-large
 - openai/text-embedding-ada-002
+- ollama/*
 
 ## Usage
 
@@ -201,7 +202,7 @@ for model_name in llmp.LLMChatCompletionFactory.available_models:
 print()
 
 factory = llmp.LLMChatCompletionFactory
-model = factory.build('ollama/phi3:latest')
+model = factory.build('ollama/phi3')
 user_msg = llmp.Message(content="Please give me a list of ten colours and some place that is related to each one.")
 sys_msg = llmp.Message(content="Provide an answer in json", role="system")
 resp = model.query([user_msg,sys_msg], json_response=True, temperature=0)
@@ -223,6 +224,7 @@ chat completion models:
   openai/gpt-4-turbo-preview
   openai/gpt-3.5-turbo
   ollama/phi3:latest
+  ollama/phi3
 
 Response successful; tokens: i:40 o:189
 {
