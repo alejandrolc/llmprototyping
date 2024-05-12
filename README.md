@@ -242,3 +242,42 @@ Response successful; tokens: i:40 o:189
   ]
 }
 ```
+</details>
+
+### Templates example
+
+Write templates.txt file:
+```
+# template: question_yesno_json_sys
+# role: system
+
+Answer the question with any of these responses: yes, no, unknown, ambiguous.
+Respond in json using this schema:
+{ "answer": "..." }
+
+# template: question_yesno_user
+# role: user
+
+{{question}}
+
+# template: extract_keywords_json_sys
+# role: system
+
+Extract keywords from the provided text.
+Respond in json using this schema:
+{ "keywords": ["keyword1", "keyword2", ...] }
+```
+
+Use it in code:
+
+```python
+import llmprototyping as llmp
+
+template_repo = llmp.TemplateFileRepository("templates.txt")
+msg_sys = template_repo.render_message('question_yesno_json_sys', {})
+msg_user = template_repo.render_message('question_yesno_user', {"question": "Is 1+1 = 2?"})
+
+# model is an LLMChatCompletion object, see examples above
+resp = model.query([msg_sys,msg_text], json_response=True)
+```
+
