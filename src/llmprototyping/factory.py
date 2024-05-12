@@ -1,4 +1,4 @@
-from .error import LLMException
+from .error import LLMPException
 
 class Singleton(type):
     _instances = {}
@@ -40,7 +40,7 @@ class Factory(metaclass=Singleton):
             if alias is not None:
                 registry[alias] = class_obj
         else:
-            raise LLMException.param_error(f"error registering {class_obj}: type mismatch; expected {cls._class}")
+            raise LLMPException.param_error(f"error registering {class_obj}: type mismatch; expected {cls._class}")
 
     @classmethod
     def build(cls, name, data={}):
@@ -49,4 +49,4 @@ class Factory(metaclass=Singleton):
         if obj_cls:
             return obj_cls.from_dict(data)
         else:
-            raise LLMException.not_found(f"No model registered with name '{name}'")
+            raise LLMPException.not_found(f"No model registered with name '{name}'")

@@ -2,7 +2,7 @@ from typing import List
 import inspect
 import groq
 from .llm_interface import LLMChatCompletion, LLMChatCompletionFactory, Message, Response
-from .error import LLMException
+from .error import LLMPException
 
 class LLMGroqChatCompletion(LLMChatCompletion):
     def __init__(self, api_key, model_name, context_size):
@@ -16,9 +16,9 @@ class LLMGroqChatCompletion(LLMChatCompletion):
 
     def query(self, messages:List[Message], json_response=False, temperature=1.0):
         if not isinstance(temperature,float) and not isinstance(temperature,int):
-            raise LLMException.param_error("temperature must be a float in range [0.0,2.0]")
+            raise LLMPException.param_error("temperature must be a float in range [0.0,2.0]")
         if temperature < 0 or temperature > 2:
-            raise LLMException.param_error("temperature must be a float in range [0.0,2.0]")
+            raise LLMPException.param_error("temperature must be a float in range [0.0,2.0]")
 
         try:
             rformat = {"type": "json_object"} if json_response else None

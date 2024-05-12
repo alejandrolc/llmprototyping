@@ -1,7 +1,8 @@
-from .llm_interface import Message, Response, LLMChatCompletionFactory
+from .llm_interface import Message, Response, LLMChatCompletionFactory, LLMChatCompletionCache
 from .embeddings_interface import EmbeddingVector, EmbeddingComputerFactory
 from .vectordb import FAISSDatabase
-from .error import LLMException
+from .templates import Template, TemplateFileRepository
+from .error import LLMPException
 
 try:
     from .llm_groq import init as groq_llm_init

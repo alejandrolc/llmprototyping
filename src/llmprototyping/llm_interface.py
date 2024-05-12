@@ -31,7 +31,7 @@ class Message(Serializable):
         print(self.content)
 
 
-class Response:
+class Response(Serializable):
     @property
     def message(self):
         return self._message
@@ -61,6 +61,25 @@ class Response:
         self.show_header()
         if self.is_success:
             self.message.show()
+
+    def to_dict(self):
+        return {
+            'message': self.message.to_json() if self.message is not None else None,
+            'input_token_count': self.input_token_count,
+            'output_token_count': self.output_token_count,
+            'is_success': self.is_success,
+            'status_code': self.status_code,
+            'error': str(self.error)
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Response(message = Message.from_json(data['message']),
+                        is_success = data['is_success'],
+                        status_code = data['status_code'],
+                        error = data['error'],
+                        input_token_count = data['input_token_count'],
+                        output_token_count = data['output_token_count'])
 
     @staticmethod
     def error_response(status_code, error):
@@ -101,6 +120,56 @@ class LLMChatCompletion(ABC):
     def query(self, messages:List[Message], json_response=False, temperature=1.0):
         # this returns a Response
         raise NotImplemented()
+
+import json
+import shelve
+import time
+class LLMChatCompletionCache:
+    def __init__(self, model: LLMChatCompletion, db_path : str):
+        self.db = shelve.open(db_path)
+        self.model = model
+        self.model_name = f"cache:{self.model.model_name}"
+        self.min_seconds_per_request = None
+
+    def set_rate_limit(self, max_requests_per_second: int):
+        assert max_requests_per_second > 0
+        self.min_seconds_per_request = 60.0 / max_requests_per_second
+
+    @property
+    def context_size(self):
+        return self.model.context_size
+
+    def _generate_key(self, messages, json_response, temperature):
+        key = {
+            'model_name': self.model.model_name,
+            'json_response': json_response,
+            'temperature': f'{temperature:.3f}',
+            'messages': [x.to_json() for x in messages]
+        }
+        return json.dumps(key)
+
+    def purge_query(self, messages:List[Message], json_response=False, temperature=1.0):
+        key = self._generate_key(messages, json_response, temperature)
+        if key in self.db:
+            del self.db[key]
+
+    def query(self, messages:List[Message], json_response=False, temperature=1.0):
+        key = self._generate_key(messages, json_response, temperature)
+        if key in self.db:
+            data = self.db[key]
+            resp = Response.from_json(data)
+        else:
+            t0 = time.time()
+            resp = self.model.query(messages=messages, json_response=json_response, temperature=temperature)
+            if resp.is_success:
+                data = resp.to_json()
+                self.db[key] = data
+            t1 = time.time()
+            if self.min_seconds_per_request is not None:
+                dt = self.min_seconds_per_request - (t1-t0)
+                if dt > 0:
+                    time.sleep(dt)
+        return resp
 
 class LLMChatCompletionFactory(Factory):
     _class = LLMChatCompletion

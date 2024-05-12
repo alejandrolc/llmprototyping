@@ -1,7 +1,7 @@
 import faiss
 import numpy as np
 from typing import List, Dict
-from .error import LLMException
+from .error import LLMPException
 from .embeddings_interface import EmbeddingVector
 
 class FAISSDatabase:
@@ -14,7 +14,7 @@ class FAISSDatabase:
     def _handle_embedding(self, embedding:EmbeddingVector):
         ae = embedding.vector.reshape(1, -1)
         if ae.shape[1] != self.embedding_size:
-            raise LLMException.param_error(f"embedding size mismatch: {ae.shape[1]} dimensions vs {self.embedding_size} expected")
+            raise LLMPException.param_error(f"embedding size mismatch: {ae.shape[1]} dimensions vs {self.embedding_size} expected")
         n = np.linalg.norm(ae[0])
         if n != 0:
             ae[0] = ae[0] / n

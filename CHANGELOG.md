@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0.dev5 2024-05-13 (wip)
+
+LLMException renamed to LLMPException
+LLMChatCompletionCache
+Template, TemplateFileRepository
+Response objects now Serializable
+
 ## 0.1.0.dev4 2024-05-09
 
 added ollama chat and embeddings

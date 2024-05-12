@@ -3,7 +3,7 @@ import inspect
 import ollama
 from .llm_interface import LLMChatCompletion, LLMChatCompletionFactory, Message, Response
 from .embeddings_interface import EmbeddingComputer, EmbeddingComputerFactory, EmbeddingVector
-from .error import LLMException
+from .error import LLMPException
 
 class OLlamaEmbeddingComputer(EmbeddingComputer):
     @property
@@ -42,15 +42,15 @@ class OLlamaEmbeddingComputer(EmbeddingComputer):
         try:
             resp = self._client.embeddings(prompt=text, model=self._ollama_model_name)
         except ollama.ResponseError as e:
-            raise LLMException(e.status_code, e.error, True)
+            raise LLMPException(e.status_code, e.error, True)
         except Exception as e:
-            raise LLMException("exception", e, False)
+            raise LLMPException("exception", e, False)
 
         if 'embedding' not in resp:
-            raise LLMException("unexpected response", resp, False)
+            raise LLMPException("unexpected response", resp, False)
         v = resp.get('embedding',[])
         if len(v) != self.vector_size:
-            raise LLMException("vector size mismatch", f"vector size mismatch; expected:{self.vector_size} got:{len(v)}", False)
+            raise LLMPException("vector size mismatch", f"vector size mismatch; expected:{self.vector_size} got:{len(v)}", False)
         return EmbeddingVector(v, self.get_computer_name(self.model_name))
 
     def __init__(self, host, model_name, vector_size, comparison_method, ollama_model_name):
@@ -73,7 +73,7 @@ class LLMOLlamaChatCompletion(LLMChatCompletion):
 
     def query(self, messages:List[Message], json_response=False, temperature=1.0):
         if not isinstance(temperature,float) and not isinstance(temperature,int):
-            raise LLMException.param_error("temperature must be a float")
+            raise LLMPException.param_error("temperature must be a float")
 
         try:
             rformat = 'json' if json_response else ''

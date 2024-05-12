@@ -12,7 +12,7 @@ with open('requirements.txt') as f:
 setup(
     name="llmprototyping",
     # https://packaging.python.org/en/latest/discussions/versioning/
-    version="0.1.0.dev4",
+    version="0.1.0.dev5",
     description="A lightweight set of tools to use several llm and embeddings apis",
     long_description=long_description,
     long_description_content_type="text/markdown",

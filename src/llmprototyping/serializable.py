@@ -13,6 +13,10 @@ class Serializable(ABC):
     def to_json(self):
         return json.dumps(self.to_dict())
     @classmethod
-    def from_json(cls,json_string):
+    def from_json(cls, json_string):
+        if json_string is None:
+            return None
         data = json.loads(json_string)
+        if data is None:
+            return None
         return cls.from_dict(data)
