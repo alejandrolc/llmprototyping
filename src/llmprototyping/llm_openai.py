@@ -59,6 +59,10 @@ class LLMOpenAIChatCompletion(LLMChatCompletion):
     def from_dict(cls, data):
         return cls(model_name=cls.cls_model_name, context_size=cls.cls_context_size, api_key=data['api_key'])
 
+class OpenAI_GPT_4o(LLMOpenAIChatCompletion):
+    cls_model_name = 'gpt-4o'
+    cls_context_size = 128000
+
 class OpenAI_GPT_4_turbo(LLMOpenAIChatCompletion):
     cls_model_name = 'gpt-4-turbo'
     cls_context_size = 128000

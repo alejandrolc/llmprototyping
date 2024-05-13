@@ -45,6 +45,9 @@ class Response(Serializable):
     def is_success(self):
         return self._is_success
     @property
+    def is_failure(self):
+        return self._is_success != True
+    @property
     def status_code(self):
         return self._status_code
     @property
@@ -122,11 +125,11 @@ class LLMChatCompletion(ABC):
         raise NotImplemented()
 
 import json
-import shelve
 import time
+from .cache import Cache
 class LLMChatCompletionCache:
     def __init__(self, model: LLMChatCompletion, db_path : str):
-        self.db = shelve.open(db_path)
+        self.cache = Cache(db_path)
         self.model = model
         self.model_name = f"cache:{self.model.model_name}"
         self.min_seconds_per_request = None
@@ -150,20 +153,19 @@ class LLMChatCompletionCache:
 
     def purge_query(self, messages:List[Message], json_response=False, temperature=1.0):
         key = self._generate_key(messages, json_response, temperature)
-        if key in self.db:
-            del self.db[key]
+        self.cache.purge(key)
 
     def query(self, messages:List[Message], json_response=False, temperature=1.0):
         key = self._generate_key(messages, json_response, temperature)
-        if key in self.db:
-            data = self.db[key]
+        data = self.cache.get(key)
+        if data is not None:
             resp = Response.from_json(data)
         else:
             t0 = time.time()
             resp = self.model.query(messages=messages, json_response=json_response, temperature=temperature)
             if resp.is_success:
                 data = resp.to_json()
-                self.db[key] = data
+                self.cache.put(key, data)
             t1 = time.time()
             if self.min_seconds_per_request is not None:
                 dt = self.min_seconds_per_request - (t1-t0)

@@ -29,6 +29,7 @@ pip install llmprototyping
 - groq/llama3-8b-8192
 - groq/mixtral-8x7b-32768
 - groq/gemma-7b-it
+- openai/gpt-4o
 - openai/gpt-4-turbo
 - openai/gpt-4-turbo-preview
 - openai/gpt-3.5-turbo
@@ -220,6 +221,7 @@ chat completion models:
   groq/llama3-8b-8192
   groq/mixtral-8x7b-32768
   groq/gemma-7b-it
+  openai/gpt-4o
   openai/gpt-4-turbo
   openai/gpt-4-turbo-preview
   openai/gpt-3.5-turbo
