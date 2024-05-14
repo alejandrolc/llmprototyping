@@ -45,7 +45,7 @@ class LLMOpenAIChatCompletion(LLMChatCompletion):
         except openai.PermissionDeniedError as e:
             response = Response.error_response(status_code = e.status_code, error = f"{e.body}")
         except openai.RateLimitError as e:
-            response = Response(status_code = e.status_code, error = f"{e.body}")
+            response = Response.error_response(status_code = e.status_code, error = f"{e.body}")
         except openai.APIError as e:
             response = Response.error_response(status_code = e.status_code, error = f"{e.body}")
         except Exception as e:

@@ -4,3 +4,4 @@ tiktoken
 packaging
 faiss-cpu
 ollama
+anthropic

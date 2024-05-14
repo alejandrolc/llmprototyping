@@ -127,6 +127,7 @@ class LLMChatCompletion(ABC):
 import json
 import time
 from .cache import Cache
+
 class LLMChatCompletionCache:
     def __init__(self, model: LLMChatCompletion, db_path : str):
         self.cache = Cache(db_path)
@@ -155,22 +156,32 @@ class LLMChatCompletionCache:
         key = self._generate_key(messages, json_response, temperature)
         self.cache.purge(key)
 
+    def purge(self, response):
+        if not hasattr(response,'cache_key'): return
+        if response.cache_key == None: return
+        self.cache.purge(response.cache_key)
+
     def query(self, messages:List[Message], json_response=False, temperature=1.0):
         key = self._generate_key(messages, json_response, temperature)
         data = self.cache.get(key)
         if data is not None:
             resp = Response.from_json(data)
+            resp.cache_key = key
         else:
             t0 = time.time()
             resp = self.model.query(messages=messages, json_response=json_response, temperature=temperature)
             if resp.is_success:
                 data = resp.to_json()
                 self.cache.put(key, data)
+                resp.cache_key = key
+            else:
+                resp.cache_key = None
             t1 = time.time()
             if self.min_seconds_per_request is not None:
                 dt = self.min_seconds_per_request - (t1-t0)
                 if dt > 0:
                     time.sleep(dt)
+
         return resp
 
 class LLMChatCompletionFactory(Factory):

@@ -1,12 +1,13 @@
 # Changelog
 
-## 0.1.0.dev5 2024-05-13 (wip)
+## 0.1.0.dev5 2024-05-14
 
 LLMException renamed to LLMPException
 LLMChatCompletionCache
 Template, TemplateFileRepository
 Response objects now Serializable
 OpenAI gpt-4o (only text)
+Anthropic Claude 3 models (only text)
 
 ## 0.1.0.dev4 2024-05-09
 
