@@ -11,6 +11,10 @@ class LLMAnthropicMessages(LLMChatCompletion):
         self._context_size = context_size
 
     @property
+    def full_model_name(self):
+        return f'anthropic/{self.model_name}'
+
+    @property
     def context_size(self):
         return self._context_size
 
@@ -37,7 +41,7 @@ class LLMAnthropicMessages(LLMChatCompletion):
             rcontent = r.content
             rrole = 'assistant'
             msg = Message(content=rcontent, role=rrole)
-            input_tokens = r.usage.output_tokens
+            input_tokens = r.usage.input_tokens
             output_tokens = r.usage.output_tokens
             response = Response(message=msg, input_token_count=input_tokens, output_token_count=output_tokens)
         except anthropic.BadRequestError as e:

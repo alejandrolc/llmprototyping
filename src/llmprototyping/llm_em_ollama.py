@@ -68,6 +68,10 @@ class LLMOLlamaChatCompletion(LLMChatCompletion):
         self._client = ollama.Client(host=host)
 
     @property
+    def full_model_name(self):
+        return self.model_name
+
+    @property
     def context_size(self):
         raise NotImplemented()
 

@@ -11,6 +11,10 @@ class LLMGroqChatCompletion(LLMChatCompletion):
         self._context_size = context_size
 
     @property
+    def full_model_name(self):
+        return f'groq/{self.model_name}'
+
+    @property
     def context_size(self):
         return self._context_size
 

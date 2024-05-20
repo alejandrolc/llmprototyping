@@ -7,6 +7,10 @@ class Message(Serializable):
     @property
     def role(self):
         return self._role
+    @role.setter
+    def role(self, value):
+        self._role = value
+
     @property
     def content(self):
         return self._content
@@ -124,6 +128,12 @@ class LLMChatCompletion(ABC):
         # this returns a Response
         raise NotImplemented()
 
+    @property
+    @abstractmethod
+    def full_model_name(self):
+        raise NotImplemented()
+
+
 import json
 import time
 from .cache import Cache
@@ -132,7 +142,7 @@ class LLMChatCompletionCache:
     def __init__(self, model: LLMChatCompletion, db_path : str):
         self.cache = Cache(db_path)
         self.model = model
-        self.model_name = f"cache:{self.model.model_name}"
+        self.model_name = f"cache:{self.model.full_model_name}"
         self.min_seconds_per_request = None
 
     def set_rate_limit(self, max_requests_per_second: int):
@@ -183,6 +193,10 @@ class LLMChatCompletionCache:
                     time.sleep(dt)
 
         return resp
+
+    @property
+    def full_model_name(self):
+        return self.model_name
 
 class LLMChatCompletionFactory(Factory):
     _class = LLMChatCompletion

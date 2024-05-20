@@ -25,7 +25,7 @@ setup(
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "License :: OSI Approved :: Apache Software License",
     ],
-    keywords="llm, rag, openai, groq, ollama",
+    keywords="llm, rag, openai, groq, ollama, anthropic",
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     python_requires=">=3.9, <4",

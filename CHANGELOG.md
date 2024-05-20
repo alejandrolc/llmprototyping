@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0.dev6 2024-05-14
+
+Minor bugfixes and additions
+
 ## 0.1.0.dev5 2024-05-14
 
 LLMException renamed to LLMPException
