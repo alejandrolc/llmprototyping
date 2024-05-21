@@ -3,6 +3,7 @@ import inspect
 import anthropic
 from .llm_interface import LLMChatCompletion, LLMChatCompletionFactory, Message, Response
 from .error import LLMPException
+import json
 
 class LLMAnthropicMessages(LLMChatCompletion):
     def __init__(self, api_key, model_name, context_size):
@@ -38,7 +39,7 @@ class LLMAnthropicMessages(LLMChatCompletion):
                 model = self.model_name,
                 temperature = temperature
             )
-            rcontent = r.content
+            rcontent = json.dumps([x.to_dict() for x in r.content])
             rrole = 'assistant'
             msg = Message(content=rcontent, role=rrole)
             input_tokens = r.usage.input_tokens

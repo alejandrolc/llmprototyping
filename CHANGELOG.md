@@ -1,8 +1,9 @@
 # Changelog
 
-## 0.1.0.dev6 2024-05-14
+## 0.1.0.dev6 2024-05-14 (wip)
 
 Minor bugfixes and additions
+Anthropic llm response is a list of TypedDicts, that is not serializable directly. Fixed to return a json list.
 
 ## 0.1.0.dev5 2024-05-14
 
