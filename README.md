@@ -25,10 +25,14 @@ pip install llmprototyping
 
 ### chat completion models
 
+- groq/llama-3.1-70b-versatile
+- groq/llama-3.1-8b-instant
 - groq/llama3-70b-8192
 - groq/llama3-8b-8192
 - groq/mixtral-8x7b-32768
+- groq/gemma2-9b-it
 - groq/gemma-7b-it
+- openai/gpt-4o-mini
 - openai/gpt-4o
 - openai/gpt-4-turbo
 - openai/gpt-4-turbo-preview
