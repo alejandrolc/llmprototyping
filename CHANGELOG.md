@@ -1,9 +1,15 @@
 # Changelog
 
-## 0.1.0.dev6 2024-05-14 (wip)
+## 0.1.0.dev6 2024-08-25 (wip)
 
-Minor bugfixes and additions
+Added groq llama 3.1 70b and 8b models and gemma2 9b model
+Added openai gpt-4o-mini
+
+Templates: added support for comments: "##" at the start of the line 
+
 Anthropic llm response is a list of TypedDicts, that is not serializable directly. Fixed to return a json list.
+
+Other bugfixes and additions
 
 ## 0.1.0.dev5 2024-05-14
 

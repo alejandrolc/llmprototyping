@@ -57,6 +57,14 @@ class LLMGroqChatCompletion(LLMChatCompletion):
     def from_dict(cls, data):
         return cls(model_name=cls.cls_model_name, context_size=cls.cls_context_size, api_key=data['api_key'])
 
+class Groq_Llama3_1_70b_versatile(LLMGroqChatCompletion):
+    cls_model_name = 'llama-3.1-70b-versatile'
+    cls_context_size = 131072
+
+class Groq_Llama3_1_8b_instant(LLMGroqChatCompletion):
+    cls_model_name = 'llama-3.1-8b-instant'
+    cls_context_size = 131072
+
 class Groq_Llama3_70b_8192(LLMGroqChatCompletion):
     cls_model_name = 'llama3-70b-8192'
     cls_context_size = 8192
@@ -68,6 +76,10 @@ class Groq_Llama3_8b_8192(LLMGroqChatCompletion):
 class Groq_Mixtral_8x7b_32768(LLMGroqChatCompletion):
     cls_model_name = 'mixtral-8x7b-32768'
     cls_context_size = 32768
+
+class Groq_Gemma2_9b_It(LLMGroqChatCompletion):
+    cls_model_name = 'gemma2-9b-it'
+    cls_context_size = 8192
 
 class Groq_Gemma_7b_It(LLMGroqChatCompletion):
     cls_model_name = 'gemma-7b-it'

@@ -34,6 +34,9 @@ class TemplateFileRepository:
         with open(filepath, 'r') as file:
             for line in file:
                 line = line.strip()
+                if line.startswith('##'):
+                    # comment; ignore
+                    continue
                 if line.startswith('# template: '):
                     if current_template:
                         self.templates[current_template] = Template(current_template, metadata, ''.join(template_text).strip())
