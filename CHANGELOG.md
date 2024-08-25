@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0.dev6 2024-08-25 (wip)
+## 0.1.0.dev6 2024-08-25
 
 Added groq llama 3.1 70b and 8b models and gemma2 9b model
 Added openai gpt-4o-mini
